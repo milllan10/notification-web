@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000'); // Connect to the backend server
+// Dynamically set the socket connection URL based on environment
+const socket = io(
+  process.env.NODE_ENV === 'production'
+    ? 'https://your-backend-url.vercel.app' // Replace with your deployed backend URL
+    : 'http://localhost:5000'                // Use localhost in development
+);
 
 const App = () => {
   useEffect(() => {
