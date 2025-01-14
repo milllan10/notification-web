@@ -4,12 +4,17 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+// Update CORS to allow the frontend hosted on Vercel
+app.use(cors({
+  origin: 'https://notification-web-opal.vercel.app', // Vercel URL of your frontend
+  methods: ['GET', 'POST'],
+}));
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000', // React app URL
+    origin: 'https://notification-web-opal.vercel.app', // Same Vercel URL here
     methods: ['GET', 'POST'],
   },
 });
@@ -26,6 +31,8 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log('Server running on http://localhost:5000');
+// Use the port provided by Vercel or default to 5000
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
