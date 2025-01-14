@@ -6,7 +6,7 @@
       "use": "@vercel/static-build"
     },
     {
-      "src": "server/api/notification.js", 
+      "src": "server/server.js", 
       "use": "@vercel/node"
     }
   ],
@@ -16,8 +16,8 @@
       "dest": "/client/$1"
     },
     {
-      "src": "/api/notification",
-      "dest": "/server/api/notification.js"
+      "src": "/api/.*",
+      "dest": "/server/server.js"
     }
   ]
 }
